@@ -29,28 +29,30 @@
     <article>
         <div class="container" id="post">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                <div class="col-lg-9  col-md-7  col-sm-12">
                     @if ($post->page_image)
                         <div class="text-center">
                             <img src="{{ asset('uploads/' . $post->page_image) }}" class="post-hero">
                         </div>
                     @endif
-                    <p class="post-page-meta">
+                    <p class="post-page-meta text-center">
                         {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}
                         @if ($post->tags->count())
                             in
                             {!! join(', ', $post->tagLinks()) !!}
                         @endif
                     </p>
-                    <h1 class="post-page-title">{{ $post->title }}</h1>
-
+                    <h1 class="post-page-title text-center">{{ $post->title }}</h1>
+                        <div style="text-align: center" class="text-center">
                     {!! $post->content_html !!}
-
-                    <p style="text-align: center"><span style="padding: 10px">&#183;</span><span style="padding: 10px">&#183;</span><span style="padding: 10px">&#183;</span></p>
-
-                    @include('frontend.blog.partials.author')
-
+                    </div>
+                    <p style="text-align: center" class="text-center"></p>
                 </div>
+                <div class="col-lg-3 col-md-5 col-sm-12">
+                    @include('frontend.blog.partials.author')
+                </div>
+
             </div>
         </div>
     </article>

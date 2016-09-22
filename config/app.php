@@ -168,6 +168,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        /* add debugar bar */
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Canvas Service Providers...
@@ -224,6 +226,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Debugbar'  =>  Barryvdh\Debugbar\Facade::class,
 
         /*
          * Canvas Aliases...

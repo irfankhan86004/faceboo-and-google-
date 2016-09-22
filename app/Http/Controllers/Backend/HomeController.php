@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Settings;
@@ -17,6 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+         $user = Auth::user()->id;
+         $user_level =   Auth::user()->isAdmin();
+
         $data = [
             'posts' => Post::all(),
             'recentPosts' => Post::orderBy('created_at', 'desc')->take(4)->get(),
@@ -26,6 +29,6 @@ class HomeController extends Controller
             'status' => App::isDownForMaintenance() ? 0 : 1,
         ];
 
-        return view('backend.home.index', compact('data'));
+        return view('backend.home.index', compact('data','user_level'));
     }
 }

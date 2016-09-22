@@ -29,4 +29,20 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = ['first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook', 'github', 'linkedin', 'resume_cv', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender', 'relationship', 'birthday', 'email', 'password'];
+
+    public function getId()
+        {
+          return $this->id;
+        }
+     public function isAdmin()
+        {
+           $admin_number = $this->is_admin;
+           if($admin_number==0)
+           {
+            return 0;
+           }
+           else {
+            return 1; // this looks for an admin column in your users table
+            }
+        }
 }

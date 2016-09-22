@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Models\Tag;
 use App\Http\Controllers\Controller;
@@ -29,8 +29,9 @@ class TagController extends Controller
     public function index()
     {
         $data = Tag::all();
-
-        return view('backend.tag.index', compact('data'));
+        $user = Auth::user()->id;
+        $user_level =   Auth::user()->isAdmin();
+        return view('backend.tag.index', compact('data','user_level'));
     }
 
     /**

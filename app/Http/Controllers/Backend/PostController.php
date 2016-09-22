@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Models\Post;
 use App\Jobs\PostFormFields;
@@ -18,11 +18,17 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::all();
-
-        return view('backend.post.index', compact('data'));
+      $data = Post::all();
+      $user = Auth::user()->id;
+      $user_level =   Auth::user()->isAdmin();
+      if( $user_level==0){
+          $data = Post::all();
+      }
+      else {
+          $data = Post::where('user_id',$user)->get();
+      }
+       return view('backend.post.index', compact('data','user_level'));
     }
-
     /**
      * Show the new post form.
      *

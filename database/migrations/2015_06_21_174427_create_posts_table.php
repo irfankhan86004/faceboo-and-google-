@@ -14,6 +14,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->after('id');
             $table->string('slug')->unique();
             $table->string('title');
             $table->string('subtitle');
@@ -36,5 +37,6 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::drop('posts');
+
     }
 }

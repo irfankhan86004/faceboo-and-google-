@@ -6,7 +6,11 @@
 
 @section('content')
     <section id="main">
+        @if ($user_level===0)
         @include('backend.partials.sidebar-navigation')
+        @else
+            @include('backend.partials.sidebar-navigation_normal_user')
+        @endif
         <section id="content">
             <div class="container">
                 <div class="block-header">

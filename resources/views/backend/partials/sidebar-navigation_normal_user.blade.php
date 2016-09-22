@@ -6,7 +6,8 @@
             </div>
             <div class="profile-info">
                 {{ Auth::user()->display_name }}
-               
+                {{$user_level}}
+                {{ Auth::user()->id }}
                 <i class="zmdi zmdi-caret-down"></i>
             </div>
         </a>
@@ -20,13 +21,16 @@
         <li @if (Request::is('admin')) class="active" @endif><a href="{{ url('admin') }}"><i class="zmdi zmdi-home"></i> Home</a></li>
         <li @if (Request::is('admin/post*')) class="active" @endif><a href="{{ url('admin/post') }}"><i class="zmdi zmdi-collection-bookmark"></i> Posts <span class="label label-default label-totals">
 
-        {{ App\Models\Post::count() }}
+        {{ App\Models\Post::where('user_id',Auth::user()->id)->count() }}
 
-        </span></a></li>
+         <!-- {{ App\Models\Post::count() }} -->
+        </span>
+        </a></li>
         <li @if (Request::is('admin/tag*')) class="active" @endif><a href="{{ url('admin/tag') }}"><i class="zmdi zmdi-labels"></i> Tags <span class="label label-default label-totals">{{ App\Models\Tag::count() }}</span></a></li>
         <li @if (Request::is('admin/upload*')) class="active" @endif><a href="{{ url('admin/upload') }}"><i class="zmdi zmdi-collection-folder-image"></i> Media</a></li>
-        <li @if (Request::is('admin/tools*')) class="active" @endif><a href="{{ url('admin/tools') }}"><i class="zmdi zmdi-wrench"></i> Tools</a></li>
-        <li @if (Request::is('admin/settings*')) class="active" @endif><a href="{{ url('admin/settings') }}"><i class="zmdi zmdi-settings"></i> Settings</a></li>
-        <li @if (Request::is('admin/help')) class="active" @endif><a href="{{ url('admin/help') }}"><i class="zmdi zmdi-help"></i> Help</a></li>
+       <li @if (Request::is('admin/profile')) class="active" @endif><a href="{{ url('admin/profile') }}"><i class="zmdi zmdi-account"></i> Profile</a></li>
+       <li @if (Request::is('admin/profile/*')) class="active" @endif><a href="{{ route('admin.profile.edit', Auth::id()) }}"><i class="zmdi zmdi-edit"></i> Edit Profile</a></li>
+       <li><a href="{{ url('auth/logout') }}" name="logout"><i class="zmdi zmdi-power"></i> Sign out</a></li>
     </ul>
+
 </aside>

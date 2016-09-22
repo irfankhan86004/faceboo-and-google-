@@ -6,7 +6,12 @@
 
 @section('content')
     <section id="main">
+ <!-- if the user is admin, he can login the main navigation menu ,else the user will see his limited menu -->
+    @if ($user_level===0)
         @include('backend.partials.sidebar-navigation')
+    @else
+        @include('backend.partials.sidebar-navigation_normal_user')
+    @endif
         <section id="content">
             <div class="container">
                 <div class="card">
@@ -28,7 +33,7 @@
                                 </ul>
                             </li>
                         </ul>
-
+                       <span >User_level:</span> {{$user_level}}
                         @include('shared.errors')
                         @include('shared.success')
 

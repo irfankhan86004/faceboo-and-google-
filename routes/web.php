@@ -80,7 +80,28 @@ Route::group([
         ],
     ]);
 
-    // Tools Page
+    // // Tools Page
+    // Route::get('admin/tools', 'ToolsController@index');
+    // Route::post('admin/tools/reset_index', 'ToolsController@resetIndex');
+    // Route::post('admin/tools/cache_clear', 'ToolsController@clearCache');
+    // Route::post('admin/tools/download_archive', 'ToolsController@handleDownload');
+    // Route::post('admin/tools/enable_maintenance_mode', 'ToolsController@enableMaintenanceMode');
+    // Route::post('admin/tools/disable_maintenance_mode', 'ToolsController@disableMaintenanceMode');
+
+    // // Settings Page
+    // Route::get('admin/settings', 'SettingsController@index');
+    // Route::post('admin/settings', 'SettingsController@store');
+
+    // // Help Page
+    // Route::get('admin/help', 'HelpController@index');
+});
+
+
+Route::group([
+    'namespace'  => 'Backend',
+    'middleware' => ['auth','admin']
+], function () {
+       // Tools Page
     Route::get('admin/tools', 'ToolsController@index');
     Route::post('admin/tools/reset_index', 'ToolsController@resetIndex');
     Route::post('admin/tools/cache_clear', 'ToolsController@clearCache');
@@ -95,12 +116,21 @@ Route::group([
     // Help Page
     Route::get('admin/help', 'HelpController@index');
 });
-
 /*
 |--------------------------------------------------------------------------
 | Canvas Application Routes : Authentication
 |--------------------------------------------------------------------------
 */
+
+// add user registion 
+Route::group([
+    'namespace' => 'Auth','middleware'=>['web']], function () {
+    Route::get('/register',  'RegisterController@index')->name('auth.register');
+
+    Route::post('/register',  'RegisterController@create')->name('auth.create');
+
+});
+
 Route::group([
     'namespace' => 'Auth',
 ], function () {
@@ -113,6 +143,8 @@ Route::group([
 
         // Passwords
         Route::post('password', 'PasswordController@updatePassword');
+
+        // Route::get('/register', 'RegisterController@create');
     });
 
     Route::group(['prefix' => 'password'], function () {
@@ -125,3 +157,5 @@ Route::group([
         Route::post('reset', 'ResetPasswordController@reset')->name('auth.password.reset.store');
     });
 });
+
+  
