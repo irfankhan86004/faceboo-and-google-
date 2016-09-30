@@ -7,8 +7,12 @@
 @section('content')
     <section id="main">
 
-        @include('backend.partials.sidebar-navigation')
-
+        {{--@include('backend.partials.sidebar-navigation')--}}
+        @if (Auth::user()->is_admin===0)
+            @include('backend.partials.sidebar-navigation')
+        @else
+            @include('backend.partials.sidebar-navigation_normal_user')
+        @endif
         <section id="content">
             <div class="container">
                 <div class="card">
@@ -22,7 +26,7 @@
                         @include('shared.errors')
 
                         @include('shared.success')
-
+                        {{Auth::user()->id}}
                         <h2>Create a New Post
                             <br>
                             <small>Set a page image to feature at the top of your blog post by specifying the image path relative to the uploads directory.</small>
@@ -31,7 +35,7 @@
                     <div class="card-body card-padding">
                         <form class="keyboard-save" role="form" method="POST" id="postCreate" action="{{ route('admin.post.store') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id }}">
                             @include('backend.post.partials.form')
 
                             <div class="form-group">

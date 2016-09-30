@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Jobs\BlogIndexData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Debugbar;
 
 class BlogController extends Controller
 {
@@ -20,12 +21,11 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $user = User::findOrFail(1);
-       // dd($user);
         $tag = $request->get('tag');
+        $alltags=  Tag::all();
         $data = $this->dispatch(new BlogIndexData($tag));
         $layout = $tag ? Tag::layout($tag)->first() : 'frontend.blog.index';
-      
-        return view($layout, $data)->with(compact('user'));
+        return view($layout, $data)->with(compact('user','alltags'));
     }
 
     /**

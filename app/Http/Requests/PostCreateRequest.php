@@ -45,6 +45,7 @@ class PostCreateRequest extends FormRequest
             'is_draft' => (bool) $this->is_draft,
             'published_at' => $this->published_at,
             'layout' => $this->layout,
+            'user_id'=>$this->user_id,
         ];
     }
 }

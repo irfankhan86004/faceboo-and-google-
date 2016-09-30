@@ -6,7 +6,6 @@
             </div>
             <div class="profile-info">
                 {{ Auth::user()->display_name }}
-                {{$user_level}}
                 {{ Auth::user()->id }}
                 <i class="zmdi zmdi-caret-down"></i>
             </div>

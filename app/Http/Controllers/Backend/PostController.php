@@ -68,7 +68,6 @@ class PostController extends Controller
     public function edit($id)
     {
         $data = $this->dispatch(new PostFormFields($id));
-
         return view('backend.post.edit', $data);
     }
 
@@ -83,6 +82,7 @@ class PostController extends Controller
     public function update(PostUpdateRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+//        $request->postFillData()
         $post->fill($request->postFillData());
         $post->save();
         $post->syncTags($request->get('tags', []));

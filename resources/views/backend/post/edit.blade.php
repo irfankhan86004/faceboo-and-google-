@@ -7,8 +7,11 @@
 @section('content')
     <section id="main">
 
-        @include('backend.partials.sidebar-navigation')
-
+        @if (Auth::user()->is_admin===0)
+            @include('backend.partials.sidebar-navigation')
+        @else
+            @include('backend.partials.sidebar-navigation_normal_user')
+        @endif
         <section id="content">
             <div class="container">
                 <div class="card">
@@ -46,9 +49,8 @@
                         <form class="keyboard-save" role="form" method="POST" id="postUpdate" action="{{ route('admin.post.update', $id) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
-
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id }}">
                             @include('backend.post.partials.form')
-
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-icon-text" name="action" value="continue">
                                     <i class="zmdi zmdi-floppy"></i> Save
