@@ -85,9 +85,9 @@
       <input class="form-control datetime-picker" name="published_at" id="published_at" type="text" value="{{ $published_at }}" placeholder="YYYY/MM/DD HH:MM:SS" data-mask="0000/00/00 00:00:00">
     </div>
 </div>
-
+{{ Debugbar::info($allTags) }}
+{{ Debugbar::info($tags) }}
 <br>
-
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Tags</label>
@@ -100,7 +100,38 @@
 </div>
 
 <br>
+{{--<div class="form-group">--}}
+    {{--<div class="fg-line">--}}
+        {{--<label class="fg-label">Location</label>--}}
+        {{--<input type="text" class="form-control" name="location_id" id="layout" value="{{ $location_id }}" placeholder="location_name">--}}
+    {{--</div>--}}
+{{--</div>--}}
 
+{{ Debugbar::info($locations) }}
+
+
+{{--<div class="form-group">--}}
+    {{--<div class="fg-line">--}}
+    {{--{!!  Form::label('fg-label', 'Location') !!}--}}
+    {{--</div>--}}
+
+    {{--{!!  Form::select('location_id[]',$locations,$location_id,['id'=>'location_name','class'=>'form-control']) !!}--}}
+{{--</div>--}}
+
+<div class="form-group">
+    <div class="fg-line">
+        <label class="fg-label">Location</label>
+        <select  class="form-control" name="location_id[]" id="location_id">
+            @foreach($locations as $key =>$value )
+            {
+                 <option value ="{{$key}}">{{$value}}</option>
+            }
+            @endforeach
+        </select>
+    </div>
+</div>
+
+<br>
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Layout</label>
@@ -112,8 +143,30 @@
 
 <div class="form-group">
     <div class="fg-line">
+        <label class="fg-label">Meta description</label>
         <textarea class="form-control auto-size" name="meta_description" id="meta_description" style="resize: vertical" placeholder="Meta Description">{{ $meta_description }}</textarea>
     </div>
 </div>
-
+ {{ Debugbar::info(Route::getCurrentRoute()->getPath())}}
 <br>
+
+<script >
+
+    $( document ).ready(function() {
+        var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+
+        $('#location_id').select2({
+            placeholder: "Select a state"
+          // data:data
+        });
+
+
+        //for edit page purpose to allow
+       <?php  if(Route::getCurrentRoute()->getPath()=='admin/post/{post}/edit')
+              {?>
+               $("#location_id").select2().select2('val','<?php echo json_encode($location_id) ?>');
+              <?php
+              }
+         ?>
+    });
+</script>

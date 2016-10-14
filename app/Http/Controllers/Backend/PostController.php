@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Models\Post;
+use App\Models\Location;
 use App\Jobs\PostFormFields;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
+
 
 class PostController extends Controller
 {
@@ -37,8 +39,13 @@ class PostController extends Controller
     public function create()
     {
         $data = $this->dispatch(new PostFormFields());
+        $locations = \App\Models\Location::pluck('location_name','id');
+        //$locations = Location::select('id','location_name')->get();
+        //dd($locations->first());
 
-        return view('backend.post.create', $data);
+//      return $view->with('users', $users)->with('q', $q);
+//      return  view('backend.post.create', compact('locations', 'data'));
+        return view('backend.post.create')->with($data)->with('locations',$locations);
     }
 
     /**
@@ -50,6 +57,8 @@ class PostController extends Controller
      */
     public function store(PostCreateRequest $request)
     {
+        //        $request
+        //        dd($request->location_id[0]);
         $post = Post::create($request->postFillData());
         $post->syncTags($request->get('tags', []));
 
@@ -67,8 +76,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $locations = \App\Models\Location::pluck('location_name');
         $data = $this->dispatch(new PostFormFields($id));
-        return view('backend.post.edit', $data);
+//        $locations = Location::select('id','location')->get();
+//        $location_selected_id = Post::ALL()->WHERE('id','==',$id);
+        return view('backend.post.edit')->with($data)->with('locations',$locations);
     }
 
     /**

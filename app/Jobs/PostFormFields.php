@@ -38,6 +38,7 @@ class PostFormFields
         'published_at' => '',
         'updated_at' => '',
         'layout' => 'frontend.blog.post',
+        'location_id'=>'',
         'tags' => [],
     ];
 

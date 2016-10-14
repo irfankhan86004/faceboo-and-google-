@@ -143,7 +143,6 @@ class ToolsController extends Controller
             })->store('csv', storage_path($this->date.'-canvas-archive'), true);
         }
     }
-
     protected function storeTags()
     {
         $tags = Tag::get()->toArray();

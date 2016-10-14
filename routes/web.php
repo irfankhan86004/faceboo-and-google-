@@ -8,6 +8,8 @@
 
 // Homepage
 Route::get('/', 'Frontend\BlogController@index')->name('home');
+Route::post('/', 'Frontend\BlogController@search')->name('home.search');
+
 
 Route::group(['prefix' => 'blog'], function () {
     // Blog Index Page
@@ -51,6 +53,19 @@ Route::group([
             'edit' => 'admin.tag.edit',
             'update' => 'admin.tag.update',
             'destroy' => 'admin.tag.destroy',
+        ],
+    ]);
+
+    // Location Page
+    Route::resource('admin/location', 'LocationController', [
+        'except' => 'show',
+        'names' => [
+            'index' => 'admin.location.index',
+            'create' => 'admin.location.create',
+            'store' => 'admin.location.store',
+            'edit' => 'admin.location.edit',
+            'update' => 'admin.location.update',
+            'destroy' => 'admin.location.destroy',
         ],
     ]);
 

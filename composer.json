@@ -31,7 +31,8 @@
         "teamtnt/tntsearch": "^0.8.0",
         "larapack/config-writer": "^1.0",
         "maatwebsite/excel": "~2.1.0",
-        "barryvdh/laravel-debugbar": "^2.2"
+        "barryvdh/laravel-debugbar": "^2.2",
+        "laravelcollective/html": "^5.2"
     },
     "require-dev": {
         "symfony/dom-crawler": "~3.0",

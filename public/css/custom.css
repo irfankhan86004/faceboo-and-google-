@@ -1,0 +1,110 @@
+.container{
+    padding-top: 15px;
+}
+.post-preview{
+    background-color: #fcffde;
+}
+.search{
+    background: #f4f2f0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.search select {
+    padding: 0;
+    margin: 0;
+    height: 50px;
+    line-height: 50px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 40px!important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 40px!important;
+}
+.select2-container .select2-selection--single{
+    height: 40px !important;
+}
+#mc_embed_signup_scroll{
+     padding-left: 30%;
+     padding-right: 30%;
+ }
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    #mc_embed_signup_scroll{
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+    #mc_embed_signup_scroll{
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+    #mc_embed_signup_scroll{
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    #mc_embed_signup_scroll{
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+    #mc_embed_signup_scroll{
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+    #mc_embed_signup_scroll{
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+}
+/**********
+iPad 3
+**********/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
+    #mc_embed_signup_scroll{
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+    #mc_embed_signup_scroll{
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+}
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+    #mc_embed_signup_scroll{
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+}
+
+/* Large screens ----------- */
+@media only screen  and (min-width : 1824px) {
+    #mc_embed_signup_scroll{
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+}
+

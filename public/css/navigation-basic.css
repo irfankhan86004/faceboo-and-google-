@@ -1,4 +1,6 @@
 .menu-navigation-basic {
+    /*add ny bing*/
+    background-color: lightgray;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     margin-top: 20px;
@@ -6,7 +8,8 @@
 
 .menu-navigation-basic a {
     color:  #809098;
-    font-size: 12px;
+    /*add ny bing*/
+    font-size: 20px;
     font-weight: bold;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     margin: 0 20px auto;

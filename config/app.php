@@ -176,6 +176,7 @@ return [
          */
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+       Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -235,6 +236,8 @@ return [
         'ConfigWriter'  => Larapack\ConfigWriter\Repository::class,
         'Excel'         => Maatwebsite\Excel\Facades\Excel::class,
         'Settings'      => \App\Models\Settings::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 

@@ -34,7 +34,7 @@
                             </li>
                         </ul>
                        <span >User_level:</span> {{$user_level}}
-                        <span >User_ID:</span>        {{Auth::user()->id}}
+                        <span >User_ID:</span>  {{Auth::user()->id}}
                         @include('shared.errors')
                         @include('shared.success')
 

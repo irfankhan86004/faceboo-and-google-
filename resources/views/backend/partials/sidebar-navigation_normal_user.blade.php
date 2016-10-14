@@ -25,6 +25,8 @@
          <!-- {{ App\Models\Post::count() }} -->
         </span>
         </a></li>
+        <li @if (Request::is('admin/location*')) class="active" @endif><a href="{{ url('admin/location') }}"><i class="zmdi zmdi-labels"></i>Locations <span class="label label-default label-totals">{{ App\Models\Location::count() }}</span></a></li>
+
         <li @if (Request::is('admin/tag*')) class="active" @endif><a href="{{ url('admin/tag') }}"><i class="zmdi zmdi-labels"></i> Tags <span class="label label-default label-totals">{{ App\Models\Tag::count() }}</span></a></li>
         <li @if (Request::is('admin/upload*')) class="active" @endif><a href="{{ url('admin/upload') }}"><i class="zmdi zmdi-collection-folder-image"></i> Media</a></li>
        <li @if (Request::is('admin/profile')) class="active" @endif><a href="{{ url('admin/profile') }}"><i class="zmdi zmdi-account"></i> Profile</a></li>

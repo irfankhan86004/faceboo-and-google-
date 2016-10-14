@@ -21,7 +21,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = [  'user_id',
+    protected $fillable = [  'user_id','location_id',
         'title', 'subtitle', 'content_raw', 'page_image', 'meta_description',
         'layout', 'is_draft', 'published_at', 'slug',
     ];
@@ -55,12 +55,11 @@ class Post extends Model
      */
     public function syncTags(array $tags)
     {
-        Tag::addNeededTags($tags);
+        Tag::addNeededTags($tags);//create an new tag in the DB table
         if (count($tags)) {
             $this->tags()->sync(
                 Tag::whereIn('tag', $tags)->pluck('id')->all()
             );
-
             return;
         }
         $this->tags()->detach();

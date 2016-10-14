@@ -46,6 +46,7 @@ class PostCreateRequest extends FormRequest
             'published_at' => $this->published_at,
             'layout' => $this->layout,
             'user_id'=>$this->user_id,
+            'location_id' => $this->location_id[0],
         ];
     }
 }

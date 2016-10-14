@@ -7,7 +7,7 @@
 </style>
 <div id="mc_embed_signup">
     <form action="//nexbits.us1.list-manage.com/subscribe/post?u=98fbc775b9be4e3636984461d&amp;id=83778e795b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-        <div id="mc_embed_signup_scroll" style="padding-left:10%;padding-right:10%">
+        <div id="mc_embed_signup_scroll">
             <h2 class="text-center">Subscribe to our mailing list</h2>
             <h4 class="text-center">5,000+ subscribers stay in the loop on featured jobs
             and updates with the semi-monthly LaraJobs newsletter.</h4>
