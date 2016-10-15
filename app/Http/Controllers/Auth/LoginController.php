@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
+use Socialite;
 class LoginController extends Controller
 {
     /*
@@ -97,5 +97,39 @@ class LoginController extends Controller
         Session::set('_login', trans('messages.login', ['display_name' => $user->display_name]));
 
         return redirect()->intended($this->redirectPath());
+    }
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback()
+    {
+
+        $user = Socialite::driver('facebook')->user();
+        $token = $user->token;
+        dd($token);
+//        // OAuth Two Providers
+//
+//        $refreshToken = $user->refreshToken; // not always provided
+//        $expiresIn = $user->expiresIn;
+//
+//    // OAuth One Providers
+//            $token = $user->token;
+//            $tokenSecret = $user->tokenSecret;
+//
+//    // All Providers
+//            $user->getId();
+//            $user->getNickname();
+//            $user->getName();
+//            $user->getEmail();
+//            $user->getAvatar();
+
+
     }
 }

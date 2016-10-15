@@ -176,8 +176,8 @@ return [
          */
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-       Collective\Html\HtmlServiceProvider::class,
-
+        Collective\Html\HtmlServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -238,7 +238,7 @@ return [
         'Settings'      => \App\Models\Settings::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

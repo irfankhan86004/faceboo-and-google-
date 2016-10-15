@@ -10,6 +10,8 @@
 Route::get('/', 'Frontend\BlogController@index')->name('home');
 Route::post('/', 'Frontend\BlogController@search')->name('home.search');
 
+Route::get('facebook/login', 'Auth\LoginController@redirectToProvider');
+Route::get('facebook/login/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::group(['prefix' => 'blog'], function () {
     // Blog Index Page

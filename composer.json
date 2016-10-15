@@ -32,7 +32,9 @@
         "larapack/config-writer": "^1.0",
         "maatwebsite/excel": "~2.1.0",
         "barryvdh/laravel-debugbar": "^2.2",
-        "laravelcollective/html": "^5.2"
+        "laravelcollective/html": "^5.2",
+        "laravel/socialite": "2.*",
+        "guzzlehttp/guzzle": "~4.0"
     },
     "require-dev": {
         "symfony/dom-crawler": "~3.0",

@@ -21,7 +21,7 @@
                     <div class="card-header" style="text-align: center">
                         <img src="{{ asset('images/favicon.png') }}" style="width: 85px">
                     </div>
-
+                    {{--<button><a href="/facebook/login">FACEBOOK</a></button>--}}
                     <div class="card-body card-padding" id="login-ch">
 
                         <p class="f-20 f-300 text-center">Welcome to using Chinausamassageo</p>
@@ -31,6 +31,7 @@
                        {{ Debugbar::info('nice')}}
                     </div>
                 </div>
+
                 <p class="text-center"><a href="/"><i class="zmdi zmdi-long-arrow-return"></i> Back to the blog</a></p>
             </div>
         </section>

@@ -14,6 +14,18 @@ use App\Http\Requests;
 
 class LocationController extends Controller
 {
+
+    public function __construct()
+    {
+        $user = Auth::user()->id;
+        $user_level =   Auth::user()->isAdmin();
+        if( $user_level!=0){
+//            return redirect()->route('admin.post.index');
+            return 'You do not have the permission to view it';
+        }
+    }
+
+
     protected $fields = [
         'location_name' => '',
         'created_at' => '',

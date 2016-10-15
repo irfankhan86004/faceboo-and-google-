@@ -43,5 +43,10 @@ return [
         'password' => env('DB_PASSWORD'),
         'storage'  => storage_path(),
     ],
-
+    'facebook' => [
+        'client_id' => '658518357637664',
+        'client_secret' => 'b7538ccfa4d932caa0944290c212e4a4',
+        'redirect' => 'http://localhost:8000/facebook/login/callback',
+    ]
 ];
+
