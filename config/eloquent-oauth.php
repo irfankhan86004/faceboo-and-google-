@@ -7,10 +7,11 @@ return [
     'table' => 'oauth_identities',
     'providers' => [
         'facebook' => [
-            'client_id' => '658518357637664',
-            'client_secret' => 'b7538ccfa4d932caa0944290c212e4a4',
+            'client_id' => '310737512630812',
+            'client_secret' => '04c1f3096c724fb0876bbb008ca5deed',
             'redirect_uri' => 'http://localhost:8000/',
             'scope' => [],
+            'base_url' => 'http://laravel.local/fbAuth',
         ],
         'google' => [
             'client_id' => '12345678',
