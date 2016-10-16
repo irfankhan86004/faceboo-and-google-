@@ -29,6 +29,7 @@
                         @include('auth.partials.form')
 
                         <br>
+                        <a href="fbAuth?auth=facebook">Login With FaceBook</a>
                     </div>
                 </div>
                 <p class="text-center"><a href="/"><i class="zmdi zmdi-long-arrow-return"></i> Back to the blog</a></p>
