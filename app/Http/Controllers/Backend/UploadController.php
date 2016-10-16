@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Http\Request;
 use App\Services\UploadsManager;
@@ -10,13 +10,27 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadFileRequest;
 use App\Http\Requests\UploadNewFolderRequest;
 
+
 class UploadController extends Controller
 {
     protected $manager;
 
-    public function __construct(UploadsManager $manager)
+    public function __construct(UploadsManager $manager,Request $request)
     {
         $this->manager = $manager;
+//        $user = Auth::user()->display_name;
+//        $rootfolder = $user;
+        $this->user = Auth::user()->display_name;
+        $this->user_ID = Auth::user()->id;
+//        if($this->user!=0){
+//
+//        }
+       if( $this->user_ID !=0)
+       {
+            if($request->get('folder')=='/'){
+                dd('wrong path');
+            }
+       }
     }
 
     /**
@@ -28,10 +42,21 @@ class UploadController extends Controller
      */
     public function index(Request $request)
     {
+//        dd($this->user);
+        //dd($user);
         $folder = $request->get('folder');
-        $data = $this->manager->folderInfo($folder);
+//        $this->user
+//        dd( $folder);
+        if ($folder==null){
+            $folder =  $this->user;
+        }
 
-        return view('backend.upload.index', $data);
+        $data = $this->manager->folderInfo($folder);
+//        dd($data);
+        $user = Auth::user()->id;
+        $user_level =   Auth::user()->isAdmin();
+
+        return view('backend.upload.index')->with($data)->with('user_level',$user_level);
     }
 
     /**
@@ -44,7 +69,8 @@ class UploadController extends Controller
     public function createFolder(UploadNewFolderRequest $request)
     {
         $new_folder = $request->get('new_folder');
-        $folder = $request->get('folder').'/'.$new_folder;
+//        $folder = $request->get('folder').'/'.$new_folder;
+        $folder = $this->user.'/'.$new_folder;
         $result = $this->manager->createDirectory($folder);
 
         if ($result === true) {
@@ -68,7 +94,8 @@ class UploadController extends Controller
     public function deleteFolder(Request $request)
     {
         $del_folder = $request->get('del_folder');
-        $folder = $request->get('folder').'/'.$del_folder;
+//        $folder = $request->get('folder').'/'.$del_folder;
+        $folder = $this->user.'/'.$del_folder;
         $result = $this->manager->deleteDirectory($folder);
 
         if ($result === true) {
@@ -92,11 +119,13 @@ class UploadController extends Controller
     public function uploadFile(UploadFileRequest $request)
     {
         $file = $request->file('file');
+
         $fileName = $request->get('file_name') ?: $file->getClientOriginalName();
         $fileName = explode('.', $fileName)[0].'.'.strtolower($file->getClientOriginalExtension());
 
         $result = $this->manager->saveFile(
-            str_finish($request->get('folder'), '/').preg_replace('/[\'|\"]/', '', $fileName),
+         str_finish($request->get('folder'), '/').preg_replace('/[\'|\"]/', '', $fileName),
+//            str_finish($this->user, '/').preg_replace('/[\'|\"]/', '', $fileName),
             File::get($file)
         );
 
@@ -121,7 +150,9 @@ class UploadController extends Controller
     public function deleteFile(Request $request)
     {
         $del_file = $request->get('del_file');
-        $path = $request->get('folder').'/'.$del_file;
+//        $path = $request->get('folder').'/'.$del_file;
+        $path = $this->user.'/'.$del_file;
+
         $result = $this->manager->deleteFile($path);
 
         if ($result === true) {
@@ -133,5 +164,9 @@ class UploadController extends Controller
 
             return redirect()->back()->withErrors([$error]);
         }
+    }
+    public function checkadmin()
+    {
+        dd($this->user);
     }
 }
