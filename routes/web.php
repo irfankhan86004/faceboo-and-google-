@@ -6,6 +6,12 @@
 |--------------------------------------------------------------------------
 */
 
+// khan dev login start ///
+Route::get('login','Logincontroller@LoginPage');
+Route::get('fbAuth{auth?}','Auth\Logincontroller@getLoginFacebook');
+// khan dev login end ///
+
+
 // Homepage
 Route::get('/', 'Frontend\BlogController@index')->name('home');
 Route::post('/', 'Frontend\BlogController@search')->name('home.search');
