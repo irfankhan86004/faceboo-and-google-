@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Socialite;
+use DB; 
+use Auth;
+
 class LoginController extends Controller
 {
     /*
@@ -131,5 +134,86 @@ class LoginController extends Controller
 //            $user->getAvatar();
 
 
+    }
+    
+    public function getLoginFacebook(Request $request)
+    {
+        $serverName = $request->server->get('SERVER_NAME');
+        $auth = $request->get('auth');
+        if (isset($_REQUEST['hauth_start']) || isset($_REQUEST['hauth_done'])) {
+            \Hybrid_Endpoint::process();
+        } else {
+            try {                
+                if ($auth == 'facebook'):
+                    $config = $this->facebookConfig($serverName);
+                elseif ($auth == 'google'): 
+                    $config = $this->googleConfig();
+                endif;
+                
+                $oauth = new \Hybrid_Auth($config);
+                $provider = $oauth->authenticate(ucfirst($auth));
+                $profile = $provider->getUserProfile();
+                
+                $authUser = $this->findOrCreateUser($profile);
+ 
+                Auth::login($authUser, true);
+                
+                Session::set('_login', trans('messages.login', ['display_name' => $profile->displayName]));
+
+                return redirect()->intended($this->redirectPath());
+                
+            } catch( Exception $e ){
+                echo "Ooophs, we got an error: " . $e->getMessage();
+            }
+        }    
+    }
+    
+    /**
+     * Return user if exists; create and return if doesn't
+     *
+     * @param $facebookUser
+     * @return User
+     */
+    private function findOrCreateUser($facebookUser)
+    {
+        $authUser = User::where('facebook', $facebookUser->identifier)->first();
+
+        if ($authUser){
+            return $authUser;
+        }
+ 
+        return User::create([
+            'name' => $facebookUser->firstName,
+            'email' => $facebookUser->email,
+            'facebook' => $facebookUser->identifier,
+        ]);
+    }
+    
+    private function googleConfig()
+    {
+        
+    }
+
+    /**
+     * facebook configuration set
+     * @return type
+     */
+    private function facebookConfig($serverName)
+    {
+        $config = config('eloquent-oauth');
+
+        return array(
+            "base_url" => 'http://'.$serverName.'/fbAuth',
+            "providers" => array (
+                "Facebook" => array (
+                "enabled" => true,
+                    "keys" => array ( "id" => $config['providers']['facebook']['client_id'], "secret" => $config['providers']['facebook']['client_secret']),
+                    "scope" => "email", // optional
+                    "display" => "popup" // optional
+                ),
+                'scope' => 'email',
+                'trustForwarded' => false
+            )
+        );
     }
 }
