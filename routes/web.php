@@ -51,38 +51,41 @@ Route::group([
         ],
     ]);
 
-    // Tags Page
-    Route::resource('admin/tag', 'TagController', [
-        'except' => 'show',
-        'names' => [
-            'index' => 'admin.tag.index',
-            'create' => 'admin.tag.create',
-            'store' => 'admin.tag.store',
-            'edit' => 'admin.tag.edit',
-            'update' => 'admin.tag.update',
-            'destroy' => 'admin.tag.destroy',
-        ],
-    ]);
-
-    // Location Page
-    Route::resource('admin/location', 'LocationController', [
-        'except' => 'show',
-        'names' => [
-            'index' => 'admin.location.index',
-            'create' => 'admin.location.create',
-            'store' => 'admin.location.store',
-            'edit' => 'admin.location.edit',
-            'update' => 'admin.location.update',
-            'destroy' => 'admin.location.destroy',
-        ],
-    ]);
-
+    Route::group([
+        'middleware' => ['auth','admin']
+    ], function () {
+        // Tags Page
+        Route::resource('admin/tag', 'TagController', [
+            'except' => 'show',
+            'names' => [
+                'index' => 'admin.tag.index',
+                'create' => 'admin.tag.create',
+                'store' => 'admin.tag.store',
+                'edit' => 'admin.tag.edit',
+                'update' => 'admin.tag.update',
+                'destroy' => 'admin.tag.destroy',
+            ],
+        ]);
+        // Location Page
+        Route::resource('admin/location', 'LocationController', [
+            'except' => 'show',
+            'names' => [
+                'index' => 'admin.location.index',
+                'create' => 'admin.location.create',
+                'store' => 'admin.location.store',
+                'edit' => 'admin.location.edit',
+                'update' => 'admin.location.update',
+                'destroy' => 'admin.location.destroy',
+            ],
+        ]);
+    });
     // Uploads Page
     Route::get('admin/upload', 'UploadController@index')->name('admin/upload');
     Route::post('admin/upload/file', 'UploadController@uploadFile');
     Route::delete('admin/upload/file', 'UploadController@deleteFile');
     Route::post('admin/upload/folder', 'UploadController@createFolder');
     Route::delete('admin/upload/folder', 'UploadController@deleteFolder');
+
 
     // Profile Pages
     Route::get('admin/profile/privacy', 'ProfileController@editPrivacy')->name('admin.profile.privacy');
