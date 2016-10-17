@@ -10,12 +10,11 @@ return [
             'client_id' => '310737512630812',
             'client_secret' => '04c1f3096c724fb0876bbb008ca5deed',
             'redirect_uri' => 'http://localhost:8000/',
-            'scope' => [],
-            'base_url' => 'http://laravel.local/fbAuth',
+            'scope' => []
         ],
         'google' => [
-            'client_id' => '12345678',
-            'client_secret' => 'y0ur53cr374ppk3y',
+            'client_id' => '361824190677-cpcbeff30nha9bq289qfo7jbaskda26k.apps.googleusercontent.com',
+            'client_secret' => 'B1NosaVuBYlzUsWiqBI8hGw7',
             'redirect_uri' => 'https://example.com/your/google/redirect',
             'scope' => [],
         ],
