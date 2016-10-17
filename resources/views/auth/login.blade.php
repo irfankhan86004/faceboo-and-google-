@@ -30,6 +30,7 @@
 
                         <br>
                         <a class='btn btn-link btn-block m-t-10 waves-effect' href="fbAuth?auth=facebook">Login With FaceBook</a>
+                        <a class='btn btn-link btn-block m-t-10 waves-effect' href="fbAuth?auth=google">Login With Google</a>
                     </div>
                 </div>
                 <p class="text-center"><a href="/"><i class="zmdi zmdi-long-arrow-return"></i> Back to the blog</a></p>
