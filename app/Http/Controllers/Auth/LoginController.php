@@ -140,6 +140,7 @@ class LoginController extends Controller
     {
         $serverName = $request->server->get('SERVER_NAME');
         $auth = $request->get('auth');
+        
         if (isset($_REQUEST['hauth_start']) || isset($_REQUEST['hauth_done'])) {
             \Hybrid_Endpoint::process();
         } else {
@@ -147,14 +148,14 @@ class LoginController extends Controller
                 if ($auth == 'facebook'):
                     $config = $this->facebookConfig($serverName);
                 elseif ($auth == 'google'): 
-                    $config = $this->googleConfig();
+                    $config = $this->googleConfig($serverName);
                 endif;
-                
+
                 $oauth = new \Hybrid_Auth($config);
                 $provider = $oauth->authenticate(ucfirst($auth));
                 $profile = $provider->getUserProfile();
-                
-                $authUser = $this->findOrCreateUser($profile);
+               
+                $authUser = $this->findOrCreateUser($profile, $auth);
  
                 Auth::login($authUser, true);
                 
@@ -171,27 +172,58 @@ class LoginController extends Controller
     /**
      * Return user if exists; create and return if doesn't
      *
-     * @param $facebookUser
+     * @param $user
      * @return User
      */
-    private function findOrCreateUser($facebookUser)
+    private function findOrCreateUser($user, $auth)
     {
-        $authUser = User::where('facebook', $facebookUser->identifier)->first();
+        if ($auth == 'facebook') {
+            $authUser = User::where('facebook', $user->identifier)->orWhere('email', $user->email)->first();
+            $authUser->facebook = $user->identifier;
+            $authUser->save();
+        } elseif ($auth == 'google') {
+            $authUser = User::where('google', $user->identifier)->orWhere('email', $user->email)->first();
+            
+            $authUser->google = $user->identifier;
+            $authUser->save();
+        }
 
         if ($authUser){
             return $authUser;
         }
  
-        return User::create([
-            'name' => $facebookUser->firstName,
-            'email' => $facebookUser->email,
-            'facebook' => $facebookUser->identifier,
-        ]);
+        if ($auth == 'facebook') {
+            return User::create([
+                'name' => $user->firstName,
+                'email' => $user->email,
+                'facebook' => $user->identifier,
+            ]);
+        } elseif ($auth == 'google') {
+            return User::create([
+                'name' => $user->firstName,
+                'email' => $user->email,
+                'google' => $user->identifier,
+            ]);
+        }
     }
     
-    private function googleConfig()
+    private function googleConfig($serverName)
     {
+        $config = config('eloquent-oauth');
         
+        return array(
+            "base_url" => 'http://'.$serverName.'/fbAuth?auth=google',
+            "providers" => array (
+              "Google" => array (
+                "enabled" => true,
+                "keys"    => array ( "id" => $config['providers']['google']['client_id'], "secret" => $config['providers']['google']['client_secret']),
+                  "scope"           => "https://www.googleapis.com/auth/userinfo.profile ". // optional
+                                     "https://www.googleapis.com/auth/userinfo.email"   , // optional
+                "access_type"     => "offline",   // optional
+                "approval_prompt" => "force",     // optional
+                "hd"              => "domain.com" // optional
+        
+          )));
     }
 
     /**
