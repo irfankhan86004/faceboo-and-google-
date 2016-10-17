@@ -6,7 +6,12 @@
 
 @section('content')
     <section id="main">
-        @include('backend.partials.sidebar-navigation')
+        {{--@include('backend.partials.sidebar-navigation')--}}
+        @if ($user_level===0)
+            @include('backend.partials.sidebar-navigation')
+        @else
+            @include('backend.partials.sidebar-navigation_normal_user')
+        @endif
         <section id="content">
             <div class="container">
                 <div class="card">
